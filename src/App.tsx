@@ -1,21 +1,21 @@
 import './App.css'
-import { Input } from './components/ui/input'
-import { Button } from './components/ui/button'
+import Header from './ui-components/Header'
+import Shortcuts from './ui-components/Shortcuts'
+
 
 function App() {
 
   return (
-    <>
-      <h1>FireFox</h1>
-      <Input/>
-      <Button 
-      size="lg" 
-      variant="default" 
-      value="Search" 
-    >
-      Search
-    </Button>
-    </>
+    <div className=' flex flex-col align-middle justify-center'>
+      <div className='flex flex-col gap-10'>
+
+      <Header/>
+      <Shortcuts/>
+
+      </div>
+     
+     
+    </div>
   )
 }
 
