@@ -14,40 +14,49 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between mt-0 px-1 pt-2">
+    <div className="flex items-center justify-between px-3 sm:px-5 md:px-8 py-3">
 
-      <div className="hidden md:flex items-center gap-3 relative left-5">
-        <img className="h-10 w-10" src="images/Logo.png" alt="Firefox-Logo" />
+  
+  <div className="hidden md:flex items-center gap-3">
+    <img
+      className="h-8 w-8 lg:h-10 lg:w-10"
+      src="images/Logo.png"
+      alt="Firefox-Logo"
+    />
 
-        <h1 className="text-white font-semibold tracking-wide text-2xl">
-          Firefox
-        </h1>
-      </div>
+    <h1 className="text-white font-semibold tracking-wide text-xl lg:text-2xl">
+      Firefox
+    </h1>
+  </div>
 
-      <div className="w-full flex justify-center lg:justify-center md:justify-start sm:justify-start pt-9 px-4">
+  <div className="flex-1 flex mt-8 justify-center md:justify-end lg:justify-center">
 
-        <div className="flex mr-28 items-center gap-2 rounded-md bg-gray-700 px-3 py-1 w-full max-w-155">
+    <div className="flex items-center gap-2 rounded-xl bg-gray-700 px-3 py-2 w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-2xl">
 
-          <a href="https://www.google.com/">
-            <img className="w-6 h-6" src="images/google.png" alt="google" />
-          </a>
+      <a href="https://www.google.com/">
+        <img
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          src="images/google.png"
+          alt="google"
+        />
+      </a>
 
-          <form onSubmit={onSubmit} className="w-full">
+      <form onSubmit={onSubmit} className="w-full">
 
-            <Input
-              type="text"
-              name="search"
-              placeholder="Search"
-              className="flex-1 bg-gray-700! text-white! border-gray-700! placeholder:text-gray-400!"
-            />
+        <Input
+          type="text"
+          name="search"
+          placeholder="Search"
+          className="w-full bg-gray-700! text-white! border-gray-700! placeholder:text-gray-400!"
+        />
 
-          </form>
-
-        </div>
-
-      </div>
+      </form>
 
     </div>
+
+  </div>
+
+</div>
   );
 };
 
