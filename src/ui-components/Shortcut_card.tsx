@@ -1,36 +1,71 @@
+import DropDown from "./DropDown"
+
 interface ShortcutItem {
+  id: number
   name: string
   url: string
-  image: string
+  image: string | null
 }
 
-const Shortcut_card = ({ item }: { item: ShortcutItem }) => {
-  return <div className="flex flex-col items-center gap-2">
-  
-  <a
-    href={item.url}
-    target="_blank"
-    rel="noreferrer"
-    className="
-      w-16 h-16
-      bg-gray-700/60
-      rounded-2xl
-      flex items-center justify-center
-      hover:bg-gray-600
-      transition
-    "
-  >
-    <img
-      className="w-9 h-9 object-contain"
-      src={item.image}
-      alt={item.name}
-    />
-  </a>
-
-  <p className="text-white text-xs font-light text-center">
-    {item.name}
-  </p>
-
-</div>
+interface ShortcutCardProps {
+  item: ShortcutItem
+  onRemove: (id: number) => void
+  onEdit: (id: number) => void
 }
+
+const Shortcut_card = ({
+  item,
+  onRemove,
+  onEdit,
+}: ShortcutCardProps) => {
+
+  return (
+
+    <div className="hover:scale-105 transition relative flex flex-col items-center gap-2 group">
+
+      <div
+        className="
+          absolute top-1 right-1 z-20
+          opacity-0 group-hover:opacity-100
+          transition
+        "
+      >
+
+        <DropDown
+          onRemove={() => onRemove(item.id)}
+          onEdit={() => onEdit(item.id)}
+        />
+
+      </div>
+
+      <a
+        href={item.url}
+        target="_blank"
+        rel="noreferrer"
+        className="
+          w-20 h-20
+          rounded-2xl
+          bg-gray-200
+          flex items-center justify-center
+          hover:bg-gray-300
+          transition
+        "
+      >
+
+        <img
+          className="w-10 h-10 object-contain"
+          src={item.image || ""}
+          alt={item.name}
+        />
+
+      </a>
+
+      <p className="text-white text-sm text-center">
+        {item.name}
+      </p>
+
+    </div>
+  )
+}
+
 export default Shortcut_card

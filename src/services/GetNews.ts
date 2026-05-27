@@ -1,7 +1,6 @@
 const API_KEY: string | undefined = import.meta.env.VITE_NEWS_API;
 
-const NEWS_URL = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&language=en`;
-
+const NEWS_URL = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&language=en&prioritydomain=top`;
 interface NewsItem {
     id: string;
     link: string;
@@ -20,6 +19,7 @@ async function getNews(): Promise<NewsItem[]> {
         const res = await fetch(NEWS_URL);
 
         const data: ApiResponse = await res.json();
+        console.log(data.results)
 
         const limitedNews = data.results.slice(0, 30);
 

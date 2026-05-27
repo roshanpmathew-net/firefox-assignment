@@ -2,6 +2,7 @@ import './App.css'
 import Header from './ui-components/Header'
 import Shortcuts from './ui-components/Shortcuts'
 import NewsGrid from './ui-components/NewsGrid'
+import Footer from './ui-components/Footer'
 
 
 function App() {
@@ -18,7 +19,9 @@ function App() {
 
       <NewsGrid/>
 
+
       </div>
+      <Footer/>
 
      
      

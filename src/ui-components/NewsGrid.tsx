@@ -27,23 +27,22 @@ const NewsGrid = () => {
   },[])
 
   return (
-    <div className="text-white flex flex-col gap-4 mt-8 px-40">
-      
-      <p className="font-bold">Thought Provoking Stories</p>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8 w-full">
+    <div className="text-white flex flex-col gap-4 mt-8 px-4 sm:px-6 md:px-10 lg:px-20 xl:px-40">
+  
+  <p className="font-bold text-lg sm:text-xl">
+    Thought Provoking Stories
+  </p>
 
-        {
-          news.map((newsItem)=>{
-            return(
-              <Newscard key={newsItem.id} news={newsItem}/>
-            )
-            
-          })
-        }
-        
-      
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
+    
+    {news.map((newsItem) => {
+      return (
+        <Newscard key={newsItem.id} news={newsItem} />
+      );
+    })}
+
+  </div>
 </div>
-    </div>
   )
 }
 
