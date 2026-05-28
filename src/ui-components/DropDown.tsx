@@ -21,22 +21,18 @@ const DropDown = ({onRemove, onEdit}: DropDownProps) => {
     <>
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Button
-          variant="ghost"
-          className="
-            h-7 w-7
-            rounded-full
-            p-0
-            bg-gray-300/80
-            hover:bg-gray-300
-            border-0
-            cursor-pointer
-
-        
-          "
-        >
-          ⋯
-        </Button>
+        <div
+        className="
+          h-7 w-7
+          rounded-full
+          flex items-center justify-center
+          bg-gray-300/80
+          hover:bg-transparent
+          cursor-pointer
+        "
+      >
+        ⋯
+      </div>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
