@@ -9,49 +9,87 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import WallPapers from "./WallPapers";
+import { X } from "lucide-react";
+import Toggle_Button from "./Toggle_Button";
+import { useEffect, useState } from "react";
 
 const DRAWER_SIDES = ["right"] as const;
 
 export function CustomizeDrawer() {
+  const [ToggleShortCuts, SetShortcuts] = useState(true);
+  const [ToggleRec, SetRec] = useState(true);
+
+  useEffect(() => {
+    const newsGrid = document.getElementById("news-grid");
+
+    if (!newsGrid) return;
+
+    if (!ToggleRec) {
+      newsGrid.style.display = "none";
+    } else {
+      newsGrid.style.display = "flex";
+    }
+  }, [ToggleRec]);
+  useEffect(() => {
+    const Shortcut_bar = document.getElementById("shortcuts-bar");
+
+    if (!Shortcut_bar) return;
+
+    if (!ToggleShortCuts) {
+      Shortcut_bar.style.display = "none";
+    } else {
+      Shortcut_bar.style.display = "flex";
+    }
+  }, [ToggleShortCuts]);
+
+
   return (
     <div className="flex flex-wrap gap-2">
       {DRAWER_SIDES.map((side) => (
         <Drawer key={side} direction={side}>
           <DrawerTrigger asChild>
-            <Button className='bg-transparent hover:bg-transparent cursor-pointer'>
+            <Button className="bg-transparent hover:bg-transparent cursor-pointer">
               Customize
             </Button>
           </DrawerTrigger>
           <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[50vh] data-[vaul-drawer-direction=top]:max-h-[50vh]">
-            <DrawerHeader>
-              <DrawerTitle>Move Goal</DrawerTitle>
-              <DrawerDescription>
-                Set your daily activity goal.
-              </DrawerDescription>
-            </DrawerHeader>
-            <div className="no-scrollbar overflow-y-auto px-4">
-              {Array.from({ length: 10 }).map((_, index) => (
-                <p
-                  key={index}
-                  className="mb-4 leading-normal style-lyra:mb-2 style-lyra:leading-relaxed"
-                >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                  irure dolor in reprehenderit in voluptate velit esse cillum
-                  dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                  cupidatat non proident, sunt in culpa qui officia deserunt
-                  mollit anim id est laborum.
-                </p>
-              ))}
-            </div>
-            <DrawerFooter>
-              <Button>Submit</Button>
+            <DrawerHeader className="w-full flex items-end">
               <DrawerClose asChild>
-                <Button variant="outline">Cancel</Button>
+                <Button className="bg-transparent cursor-pointer hover:bg-transparent!">
+                  <X className="text-black w-6! h-6! " />
+                </Button>
               </DrawerClose>
-            </DrawerFooter>
+            </DrawerHeader>
+            <div className="flex flex-col gap-4">
+              <div className="border-b border-gray-700/50 pb-5">
+              <WallPapers />
+            </div>
+              <div>
+              <div className="flex items-center gap-2 border-b border-gray-700/50 pb-7 pt-3  ">
+                <Toggle_Button
+                  toggle={ToggleShortCuts}
+                  setToggle={SetShortcuts}
+                />
+
+                <span className="text-sm leading-none relative bottom-0.5 ">
+                  ShortCuts
+                </span>
+              </div>
+              <div>
+
+              </div>
+              </div>
+              
+              <div className="flex items-center gap-2 pt-5">
+                <Toggle_Button toggle={ToggleRec} setToggle={SetRec} />
+
+                <span className="text-sm leading-none relative bottom-0.5 ">
+                  Recommended stories
+                </span>
+              </div>
+            </div>
+            <DrawerFooter></DrawerFooter>
           </DrawerContent>
         </Drawer>
       ))}

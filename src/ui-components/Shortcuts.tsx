@@ -99,7 +99,7 @@ const Shortcuts = () => {
         <Popup func="add" onClose={() => setToggle(false)} onSave={handleAdd} />
       )}
 
-      <div className="mt-10 flex justify-center px-4 ">
+      <div id="shortcuts-bar" className="mt-10 flex justify-center px-4 ">
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 max-w-7xl">
           {shortcuts.map((item) => (
             <Shortcut_card
