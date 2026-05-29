@@ -1,62 +1,70 @@
 import { Input } from "@/components/ui/input";
 
-const Header = () => {
+interface HeaderProps {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+}
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
-    const value = formData.get("search");
+const Header = ({searchTerm, setSearchTerm} : HeaderProps) => {
+  // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
 
-    if (value) {
-      window.location.href = `https://www.google.com/search?q=${value}`;
-    }
-  };
+  //   const formData = new FormData(e.currentTarget);
+  //   const value = formData.get("search");
+
+  //   if (value) {
+  //     window.location.href = `https://www.google.com/search?q=${value}`;
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-between px-3 sm:px-5 md:px-8 py-3">
-
-  
-  <div className="hidden  md:flex items-center gap-3">
-    <img
-      className="h-8 w-8 lg:h-10 lg:w-10"
-      src="images/Logo.png"
-      alt="Firefox-Logo"
-    />
-
-    <h1 className="text-white font-semibold tracking-wide text-xl lg:text-2xl">
-      Firefox
-    </h1>
-  </div>
-
-  <div className="flex-1 flex mt-8 justify-center md:justify-end lg:justify-center">
-
-    <div className="flex items-center gap-2 rounded-xl bg-gray-700 px-3 py-2 w-full max-w-full sm:max-w-md md:max-w-lg lg:max-w-2xl">
-
-      <a href="https://www.google.com/">
+      <div className="pr-10 mb-10  md:mb-0  flex items-center gap-3">
         <img
-          className="w-5 h-5 sm:w-6 sm:h-6"
-          src="images/google.png"
-          alt="google"
-        />
-      </a>
-
-      <form onSubmit={onSubmit} className="w-full">
-
-        <Input
-          type="text"
-          name="search"
-          placeholder="Search"
-          className="w-full bg-gray-700! text-white! border-gray-700! placeholder:text-gray-400!"
+          className="h-15 w-15 lg:h-10 lg:w-10 md:h-8 md:w-8"
+          src="images/Logo.png"
+          alt="Firefox-Logo"
         />
 
-      </form>
+        <h1 className=" hidden  md:flex font-semibold  text-white tracking-wide text-6xl lg:text-4xl">
+          Firefox
+        </h1>
+      </div>
 
+      <div className="flex-1 flex mt-8 justify-center md:justify-end lg:justify-center">
+        <div className="mt-8 lg:mr-40 flex items-center gap-2 rounded-full bg-white px-3 py-2 w-full sm:max-w-xs md:max-w-xl lg:max-w-3xl">
+          <a href="https://www.google.com/">
+            <img
+              className="w-5 h-5 sm:w-6 sm:h-6"
+              src="images/google.png"
+              alt="google"
+            />
+          </a>
+
+          <form  className="w-full">
+            <Input
+              type="text"
+              name="Search"
+              value={searchTerm}
+              onChange={(e)=>setSearchTerm(e.target.value)}
+              placeholder="Search News.."
+              className="
+                w-full
+                bg-white! 
+                text-black! 
+                border-white! 
+                placeholder:text-gray-400! 
+                rounded-full!
+                focus-visible:ring-0
+                focus-visible:outline-none
+                focus-visible:border-transparent
+              "
+            />
+          </form>
+        </div>
+      </div>
     </div>
-
-  </div>
-
-</div>
   );
 };
 

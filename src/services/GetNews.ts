@@ -1,45 +1,59 @@
 const API_KEY: string | undefined = import.meta.env.VITE_NEWS_API;
 
-const NEWS_URL = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&language=en&prioritydomain=top`;
 interface NewsItem {
-    id: string;
-    link: string;
-    title: string;
-    image_url: string | null;
-    source_name: string;
-    source_icon: string | null;
+  id: string;
+  link: string;
+  title: string;
+  image_url: string | null;
+  source_name: string;
+  source_icon: string | null;
 }
 
 interface ApiResponse {
-    results: any[];
+  results: any[];
+  nextPage?: string;
 }
 
-async function getNews(): Promise<NewsItem[]> {
-    try {
-        const res = await fetch(NEWS_URL);
+interface GetNewsResponse {
+  news: NewsItem[];
+  nextPage?: string;
+}
 
-        const data: ApiResponse = await res.json();
-        console.log(data.results)
+async function getNews(
+  page: string = ""
+): Promise<GetNewsResponse> {
+  try {
+    const NEWS_URL = `https://newsdata.io/api/1/latest?apikey=${API_KEY}&language=en&prioritydomain=top${
+      page ? `&page=${page}` : ""
+    }`;
 
-        const limitedNews = data.results.slice(0, 30);
+    const res = await fetch(NEWS_URL);
 
-        const formatted_news: NewsItem[] = limitedNews.map((news) => ({
-            id: news.article_id,
-            link: news.link,
-            title: news.title,
-            image_url: news.image_url,
-            source_name: news.source_name,
-            source_icon: news.source_icon,
-        }));
+    const data: ApiResponse = await res.json();
 
-        // console.log(formatted_news);
+    console.log(data);
 
-        return formatted_news;
+    const formatted_news: NewsItem[] = data.results.map((news) => ({
+      id: news.article_id,
+      link: news.link,
+      title: news.title,
+      image_url: news.image_url,
+      source_name: news.source_name,
+      source_icon: news.source_icon,
+    }));
 
-    } catch (e) {
-        console.error("Error Fetching News:", e);
-        return [];
-    }
+    return {
+      news: formatted_news,
+      nextPage: data.nextPage,
+    };
+  } catch (e) {
+    console.error("Error Fetching News:", e);
+
+    return {
+      news: [],
+      nextPage: "",
+    };
+  }
 }
 
 export default getNews;
