@@ -8,14 +8,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+interface Shortcut_item {
+    id: number;
+    name: string;
+    url: string;
+    pinned: boolean;
+    image: string | null;
+    
+}
 
 
 interface DropDownProps{
+  item: Shortcut_item;
   onRemove: () => void
   onEdit: () => void
+  onPintoggle: () => void
 }
 
-const DropDown = ({onRemove, onEdit}: DropDownProps) => {
+const DropDown = ({item, onRemove, onEdit, onPintoggle}: DropDownProps) => {
   
   return (
     <>
@@ -26,7 +36,7 @@ const DropDown = ({onRemove, onEdit}: DropDownProps) => {
           h-7 w-7
           rounded-full
           flex items-center justify-center
-          bg-gray-300/80
+          bg-transparent
           hover:bg-transparent
           cursor-pointer
         "
@@ -42,7 +52,9 @@ const DropDown = ({onRemove, onEdit}: DropDownProps) => {
         className="w-64"
       >
         <DropdownMenuGroup>
-          <DropdownMenuItem>Pin</DropdownMenuItem>
+          <DropdownMenuItem onClick={onPintoggle}>
+            {item.pinned ? "Unpin" : "Pin"}
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={onEdit}>Edit</DropdownMenuItem>
 
         </DropdownMenuGroup>

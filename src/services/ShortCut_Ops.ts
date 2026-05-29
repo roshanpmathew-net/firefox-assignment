@@ -2,6 +2,7 @@ interface Shortcut_item {
     id: number;
     name: string;
     url: string;
+    pinned: boolean;
     image: string | null;
     
 }
@@ -55,8 +56,28 @@ async function EditShortcut(id: number, updated_data : Partial<Omit<Shortcut_ite
     
 }
 
+async function TogglePin(id: number){
+    const stored = localStorage.getItem('shortcuts')
+    const shortcuts: Shortcut_item[] = stored ? JSON.parse(stored) : []
+
+    const updated_shortcuts = shortcuts.map((item)=>{
+        if(item.id === id ){
+            return{
+                ...item,
+                pinned: !item.pinned
+            }
+        }
+        return item
+    })
+
+    localStorage.setItem("shortcuts", JSON.stringify(updated_shortcuts))
+
+    return updated_shortcuts
+}
+
 export {
   AddShortcut,
   EditShortcut,
-  RemoveShortcut
+  RemoveShortcut,
+  TogglePin
 }

@@ -6,6 +6,7 @@ import {
   AddShortcut,
   RemoveShortcut,
   EditShortcut,
+  TogglePin,
 } from "@/services/ShortCut_Ops";
 import Popup from "./Popup";
 
@@ -13,6 +14,7 @@ interface Shortcut_item {
   id: number;
   name: string;
   url: string;
+  pinned: boolean;
   image: string | null;
 }
 
@@ -37,10 +39,11 @@ const Shortcuts = ({ count }: Shortcut_Props) => {
     }
   }, []);
 
-  const handleAdd = async (name: string, url: string, image: string) => {
+  const handleAdd = async (name: string, url: string, image: string, pinned: boolean) => {
     const New_shortcuts = await AddShortcut({
       name,
       url,
+      pinned,
       image,
     });
 
@@ -57,6 +60,13 @@ const Shortcuts = ({ count }: Shortcut_Props) => {
 
     setEditToggle(true);
   };
+
+  const handlePinToggle = async(id:number) =>{
+    const New_shortcuts = await TogglePin(id)
+
+    setShortcuts(New_shortcuts);
+   
+  }
 
   const handleEditSave = async (name: string, url: string, image: string) => {
     if (!selectedShortcut) return;
@@ -124,6 +134,7 @@ const Shortcuts = ({ count }: Shortcut_Props) => {
               item={item}
               onEdit={handleEdit}
               onRemove={handleRemove}
+              onPintoggle={handlePinToggle}
             />
           ))}
 

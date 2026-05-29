@@ -3,7 +3,7 @@ import { useEffect } from "react";
 interface PopupProps {
   func: string;
   onClose: () => void;
-  onSave: (name: string, url: string, image: string) => void;
+  onSave: (name: string, url: string, image: string, pinned: boolean) => void;
   initialData?:{
     name: string, url: string, image: string | null
   }
@@ -28,8 +28,9 @@ const Popup = ({ func, onClose, onSave, initialData }: PopupProps) => {
     const name = formData.get("title") as string;
     const url = formData.get("url") as string;
     const image = formData.get("image") as string;
+    const pinned = false;
 
-    onSave(name, url, image);
+    onSave(name, url, image, pinned);
   };
 
   return (
