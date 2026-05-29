@@ -11,7 +11,11 @@ interface News {
   source_icon: string | null;
 }
 
-const NewsGrid = () => {
+interface NewsGridProps {
+  searchItem: string;
+}
+
+const NewsGrid = ({searchItem}: NewsGridProps) => {
   const [news, setNews] = useState<News[]>([]);
 
   useEffect(() => {
@@ -27,6 +31,10 @@ const NewsGrid = () => {
     fetchNews();
   }, []);
 
+  const filteredNews = news.filter((item)=>{
+    return item.title.toLowerCase().includes(searchItem.toLowerCase())
+  })
+
   return (
     <div
       id="news-grid"
@@ -35,7 +43,7 @@ const NewsGrid = () => {
       <p className="font-bold text-lg sm:text-xl">Thought Provoking Stories</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full">
-        {news.map((newsItem) => {
+        {filteredNews.map((newsItem) => {
           return <Newscard key={newsItem.id} news={newsItem} />;
         })}
       </div>

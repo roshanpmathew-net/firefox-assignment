@@ -15,7 +15,12 @@ interface Shortcut_item {
   url: string;
   image: string | null;
 }
-const Shortcuts = () => {
+
+interface Shortcut_Props {
+  count: number;
+}
+
+const Shortcuts = ({ count }: Shortcut_Props) => {
   const [shortcuts, setShortcuts] = useState<Shortcut_item[]>(data);
   const [toggleADD, setToggle] = useState(false);
   const [toggleEDIT, setEditToggle] = useState(false);
@@ -84,6 +89,7 @@ const Shortcuts = () => {
 
     setShortcuts(New_shortcuts);
   };
+  const visibleShortcuts = shortcuts.slice(0, 8 * count);
   return (
     <>
       {toggleEDIT && selectedShortcut && (
@@ -100,44 +106,45 @@ const Shortcuts = () => {
       )}
 
       <div id="shortcuts-bar" className="mt-10 flex justify-center px-4 ">
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-10 max-w-7xl">
-          {shortcuts.map((item) => (
+        <div
+          className="
+            grid
+            grid-cols-2
+            sm:grid-cols-4
+            md:grid-cols-6
+            lg:grid-cols-8
+            gap-8
+            max-w-7xl
+            mx-auto
+          "
+        >
+          {visibleShortcuts.map((item) => (
             <Shortcut_card
+              key={item.id}
               item={item}
               onEdit={handleEdit}
               onRemove={handleRemove}
             />
           ))}
 
-          {shortcuts.length < 8 && (
-            <div>
-              <div className="hover:scale-105 transition relative flex flex-col items-center gap-2 group">
-                <div
-                  className="
-                absolute top-1 right-1 z-20
-                opacity-0 group-hover:opacity-100
-                transition
-              "
-                >
-                  {" "}
-                </div>
+          {shortcuts.length < 8 * count && (
+            <div className="hover:scale-105 transition relative flex flex-col items-center gap-2 group">
+              <button
+                onClick={() => setToggle(true)}
+                className="
+                  w-20 h-20
+                  rounded-2xl
+                  bg-gray-200
+                  flex items-center justify-center
+                  cursor-pointer
+                  hover:bg-gray-300
+                  transition
+                "
+              >
+                <Plus size={20} />
+              </button>
 
-                <button
-                  onClick={() => setToggle(true)}
-                  className="
-                w-20 h-20
-                rounded-2xl
-                bg-gray-200
-                flex items-center justify-center cursor-pointer
-                hover:bg-gray-300
-                transition
-    "
-                >
-                  <Plus size={20} />
-                </button>
-
-                <p className="text-white text-sm text-center">Add Shortcut</p>
-              </div>
+              <p className="text-white text-sm text-center">Add Shortcut</p>
             </div>
           )}
         </div>

@@ -3,20 +3,24 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import WallPapers from "./WallPapers";
 import { X } from "lucide-react";
 import Toggle_Button from "./Toggle_Button";
 import { useEffect, useState } from "react";
+import Shortcut_Count from "./Shortcut_Count";
 
 const DRAWER_SIDES = ["right"] as const;
 
-export function CustomizeDrawer() {
+interface DrawerProps{
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+
+}
+
+export function CustomizeDrawer({setCount}: DrawerProps) {
   const [ToggleShortCuts, SetShortcuts] = useState(true);
   const [ToggleRec, SetRec] = useState(true);
 
@@ -66,8 +70,9 @@ export function CustomizeDrawer() {
               <WallPapers />
             </div>
               <div>
-              <div className="flex items-center gap-2 border-b border-gray-700/50 pb-7 pt-3  ">
-                <Toggle_Button
+              <div className="flex flex-col gap-2 border-b border-gray-700/50 pb-7 pt-3  ">
+              <div className="flex items-center gap-2">
+                  <Toggle_Button
                   toggle={ToggleShortCuts}
                   setToggle={SetShortcuts}
                 />
@@ -75,6 +80,12 @@ export function CustomizeDrawer() {
                 <span className="text-sm leading-none relative bottom-0.5 ">
                   ShortCuts
                 </span>
+              </div>
+                
+                <div className=" flex  justify-center gap-30 items-center">
+                  <p className="ml-3 font-light text-[11px]">Number of Rows</p>
+                  <Shortcut_Count setCount={setCount} />
+                </div>
               </div>
               <div>
 

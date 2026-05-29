@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Toggle_Button from "./Toggle_Button";
 import data from "../wallpapers.json";
+import Image_Drawer from "./Image_Drawer";
 import { Plus } from "lucide-react";
 
 const WallPapers = () => {
@@ -67,39 +68,7 @@ const WallPapers = () => {
           </label>
 
           {data.map((item) => (
-            <div
-              key={item.id}
-              onClick={() => setWallpaper(item.url)}
-              className="
-                relative group cursor-pointer
-                rounded-xl overflow-hidden bg-white
-                "
-            >
-              <img
-                src={item.url}
-                alt={item.name}
-                className="
-                w-full h-24 object-cover
-                transition-transform duration-300
-                group-hover:scale-105
-                "
-              />
-
-              <div
-                className="
-                absolute inset-0
-                bg-black/0
-                group-hover:bg-black/30
-                transition duration-300
-                "
-              />
-
-              <div className="p-2 bg-white">
-                <p className="text-xs text-center font-medium text-black">
-                  {item.name}
-                </p>
-              </div>
-            </div>
+            <Image_Drawer setWallpaper ={setWallpaper} item={item}/>
           ))}
         </div>
       </div>

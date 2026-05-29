@@ -2,8 +2,12 @@ import { Button } from "@/components/ui/button"
 import { Pencil } from "lucide-react"
 import { CustomizeDrawer } from './CustomzeDrawer'
 
+interface FooterProps{
+  
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+}
 
-const Footer = () => {
+const Footer = ({setCount}: FooterProps) => {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       <Button
@@ -39,7 +43,7 @@ const Footer = () => {
             group-hover:opacity-100
           "
         >
-          <CustomizeDrawer/>
+          <CustomizeDrawer setCount={setCount}/>
         </span>
 
         <Pencil size={18} className="shrink-0" />

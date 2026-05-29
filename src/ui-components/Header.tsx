@@ -1,16 +1,22 @@
 import { Input } from "@/components/ui/input";
 
-const Header = () => {
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+interface HeaderProps {
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+}
 
-    const formData = new FormData(e.currentTarget);
-    const value = formData.get("search");
 
-    if (value) {
-      window.location.href = `https://www.google.com/search?q=${value}`;
-    }
-  };
+const Header = ({searchTerm, setSearchTerm} : HeaderProps) => {
+  // const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData(e.currentTarget);
+  //   const value = formData.get("search");
+
+  //   if (value) {
+  //     window.location.href = `https://www.google.com/search?q=${value}`;
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-between px-3 sm:px-5 md:px-8 py-3">
@@ -36,22 +42,24 @@ const Header = () => {
             />
           </a>
 
-          <form onSubmit={onSubmit} className="w-full">
+          <form  className="w-full">
             <Input
               type="text"
-              name="search"
-              placeholder="Search with Google or enter address"
+              name="Search"
+              value={searchTerm}
+              onChange={(e)=>setSearchTerm(e.target.value)}
+              placeholder="Search News.."
               className="
-  w-full
-  bg-white! 
-  text-black! 
-  border-white! 
-  placeholder:text-gray-400! 
-  rounded-full!
-  focus-visible:ring-0
-  focus-visible:outline-none
-  focus-visible:border-transparent
-"
+                w-full
+                bg-white! 
+                text-black! 
+                border-white! 
+                placeholder:text-gray-400! 
+                rounded-full!
+                focus-visible:ring-0
+                focus-visible:outline-none
+                focus-visible:border-transparent
+              "
             />
           </form>
         </div>
